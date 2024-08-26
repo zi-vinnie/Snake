@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0j6il00v6ubh"]
+
+[ext_resource type="Texture2D" uid="uid://brerpnjbwvlko" path="res://assets/grid.png" id="1_i7bd0"]
+[ext_resource type="PackedScene" uid="uid://c8oh5dthgb15c" path="res://scenes/snake.tscn" id="2_lfftt"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i7bd0")
+
+[node name="Snake" parent="." instance=ExtResource("2_lfftt")]
+
+[node name="Camera2D" type="Camera2D" parent="Snake"]

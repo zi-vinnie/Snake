@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8oh5dthgb15c"]
+
+[ext_resource type="Script" path="res://scripts/snake.gd" id="1_bvojy"]
+[ext_resource type="Texture2D" uid="uid://dm2dxckafxxgv" path="res://assets/Snake.png" id="2_vy31m"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u04fp"]
+texture = ExtResource("2_vy31m")
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_5ntdl"]
+sources/0 = SubResource("TileSetAtlasSource_u04fp")
+
+[node name="Snake" type="Node2D"]
+script = ExtResource("1_bvojy")
+
+[node name="SnakeTiles" type="TileMapLayer" parent="."]
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_5ntdl")
+
+[node name="Update" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="Update" to="." method="_on_update_timeout"]
