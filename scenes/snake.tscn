@@ -1,13 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://c8oh5dthgb15c"]
 
 [ext_resource type="Script" path="res://scripts/snake.gd" id="1_bvojy"]
-[ext_resource type="Texture2D" uid="uid://dm2dxckafxxgv" path="res://assets/Snake.png" id="2_vy31m"]
+[ext_resource type="Texture2D" uid="uid://5gqlmphdorgd" path="res://assets/Sprite-Sheet.png" id="2_dmk7q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u04fp"]
-texture = ExtResource("2_vy31m")
+texture = ExtResource("2_dmk7q")
 0:0/animation_frame_0/duration = 1.0
 0:0/animation_frame_1/duration = 1.0
 0:0/0 = 0
+2:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_5ntdl"]
 sources/0 = SubResource("TileSetAtlasSource_u04fp")
@@ -20,7 +21,7 @@ scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_5ntdl")
 
 [node name="Update" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.5
 autostart = true
 
 [connection signal="timeout" from="Update" to="." method="_on_update_timeout"]

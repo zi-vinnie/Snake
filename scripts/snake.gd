@@ -2,13 +2,22 @@ extends Node2D
 
 var direction = [Vector2i(0, -1)]
 var parts = [Vector2i(0, -1), Vector2i(0, 0)]
-var length = 10
-
+var length = 2
+const minDelay = 0.05
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:#
+func _ready() -> void:
 	for part in parts:
 		$SnakeTiles.set_cell(part, 0, Vector2i(0, 0))
 	
+	spawnApple()
+
+func spawnApple() -> void:
+	var spawnAppleLocation = Vector2i(randi_range(-10, 9), randi_range(-10, 9))
+	while $SnakeTiles.get_cell_atlas_coords(spawnAppleLocation) == Vector2i(0, 0):
+		spawnAppleLocation = Vector2i(randi_range(-10, 9), randi_range(-10, 9))
+			
+	$SnakeTiles.set_cell(spawnAppleLocation, 0, Vector2i(2, 0))
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	var newDirection : Vector2i
@@ -27,15 +36,24 @@ func _on_update_timeout() -> void:
 	if direction.size() > 1:
 		direction.pop_front()
 	
-	#Check Tile Ahead
+	#Check for snake ahead
 	if $SnakeTiles.get_cell_atlas_coords(parts[0] + direction[0]) == Vector2i(0, 0):
-		print("Game Stopped")
+		print("Snake Hit Itself")
 		$Update.stop()
 		return
+	
+	#Check for apple ahead
+	if $SnakeTiles.get_cell_atlas_coords(parts[0] + direction[0]) == Vector2i(2, 0):
+		print("Apple Collected")
+		length += 1
+		spawnApple()
+		$Update.start($Update.wait_time*0.9 + 0.1*minDelay)
+		print($Update.wait_time)
 
 	#Move head forward
 	parts.push_front(parts[0] + direction[0])
-	print(parts[0].x, parts[0].y)
+
+	#Check for wall collision
 	if (parts[0].x < -10 or 9 < parts[0].x) or (parts[0].y < -10 or 9 < parts[0].y):
 		print("Hit Wall")
 		$Update.stop()
