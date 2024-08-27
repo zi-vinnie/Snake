@@ -5,10 +5,11 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u04fp"]
 texture = ExtResource("2_dmk7q")
-0:0/animation_frame_0/duration = 1.0
-0:0/animation_frame_1/duration = 1.0
 0:0/0 = 0
-2:0/0 = 0
+0:1/animation_frame_0/duration = 1.0
+0:1/animation_frame_1/duration = 1.0
+0:1/0 = 0
+1:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_5ntdl"]
 sources/0 = SubResource("TileSetAtlasSource_u04fp")
