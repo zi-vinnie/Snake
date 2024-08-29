@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0j6il00v6ubh"]
+
+[ext_resource type="Texture2D" uid="uid://brerpnjbwvlko" path="res://assets/sprites/grid.png" id="1_i7bd0"]
+[ext_resource type="PackedScene" uid="uid://c8oh5dthgb15c" path="res://scenes/snake.tscn" id="2_lfftt"]
+[ext_resource type="FontFile" uid="uid://bhj5ih468ca0p" path="res://assets/fonts/joystix monospace.otf" id="3_gjr2a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nq0w1"]
+font = ExtResource("3_gjr2a")
+font_size = 50
+
+[node name="Game" type="Node2D"]
+
+[node name="Snake" parent="." instance=ExtResource("2_lfftt")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Snake"]
+z_as_relative = false
+texture = ExtResource("1_i7bd0")
+
+[node name="Camera2D" type="Camera2D" parent="Snake"]
+position = Vector2(0, -20)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -390.0
+offset_right = 20.0
+offset_bottom = -350.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -278.0
+offset_top = -38.5
+offset_right = 278.0
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_nq0w1")
+horizontal_alignment = 1
+vertical_alignment = 1
