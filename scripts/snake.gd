@@ -3,7 +3,7 @@ extends Node2D
 var direction = [Vector2i(0, -1)]
 var parts = [Vector2i(0, -1), Vector2i(0, 0), Vector2i(0, 1)]
 var length = 2
-const minDelay = 0.08
+const minDelay = 0.1
 const Apple = Vector2i(0, 1)
 const SnakeHead = Vector2i(0, 0)
 const SnakeBody = Vector2i(1, 0)
@@ -36,7 +36,8 @@ func _ready() -> void:
 
 func spawnApple() -> void:
 	var spawnAppleLocation = Vector2i(randi_range(-10, 9), randi_range(-10, 9))
-	while $SnakeTiles.get_cell_atlas_coords(spawnAppleLocation) == SnakeBody:
+	
+	while $SnakeTiles.get_cell_atlas_coords(spawnAppleLocation) != Vector2i(-1, -1):
 		spawnAppleLocation = Vector2i(randi_range(-10, 9), randi_range(-10, 9))
 			
 	$SnakeTiles.set_cell(spawnAppleLocation, 0, Apple)
@@ -70,8 +71,7 @@ func _on_update_timeout() -> void:
 		print("Apple Collected")
 		length += 1
 		spawnApple()
-		$Update.start($Update.wait_time*0.9 + 0.1*minDelay)
-		print($Update.wait_time)
+		$Update.start($Update.wait_time*0.95 + 0.05*minDelay)
 
 	#Move head forward
 	parts.push_front(parts[0] + direction[0])
