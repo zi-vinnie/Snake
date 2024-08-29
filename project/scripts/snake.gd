@@ -2,7 +2,7 @@ extends Node2D
 
 var direction = [Vector2i(0, -1)]
 var parts = [Vector2i(0, -1), Vector2i(0, 0), Vector2i(0, 1)]
-var length = 2
+var length = parts.size()
 const minDelay = 0.1
 const Apple = Vector2i(0, 1)
 const SnakeHead = Vector2i(0, 0)
@@ -24,7 +24,6 @@ func mapDirectionToRotation(direction : Vector2i) -> int:
 	else:
 		return snakeDirections[0]
 
-		
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -70,6 +69,7 @@ func _on_update_timeout() -> void:
 	if $SnakeTiles.get_cell_atlas_coords(parts[0] + direction[0]) == Apple:
 		print("Apple Collected")
 		length += 1
+		$"../Control/Label".text = "Score: " + str(length - 3)
 		spawnApple()
 		$Update.start($Update.wait_time*0.95 + 0.05*minDelay)
 
