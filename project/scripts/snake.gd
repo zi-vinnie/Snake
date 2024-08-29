@@ -69,7 +69,7 @@ func _on_update_timeout() -> void:
 	if $SnakeTiles.get_cell_atlas_coords(parts[0] + direction[0]) == Apple:
 		print("Apple Collected")
 		length += 1
-		$"../Control/Label".text = "Score: " + str((length - 3)*2)
+		$"../Control/Label".text = "Score: " + str(length - 3)
 		spawnApple()
 		$Update.start($Update.wait_time*0.95 + 0.05*minDelay)
 
