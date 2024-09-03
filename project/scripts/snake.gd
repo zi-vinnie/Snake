@@ -3,11 +3,12 @@ var direction = [Vector2i(0, -1)]
 var parts = [Vector2i(0, -1), Vector2i(0, 0), Vector2i(0, 1)]
 var length = parts.size()
 var newDirection : Vector2i
-const minDelay = 0.1
+const minDelay = 0.3
 const Apple = Vector2i(0, 1)
 const SnakeHead = Vector2i(0, 0)
 const SnakeBody = Vector2i(1, 0)
 const touchRatio = 5
+const gridSize = 3
 
 const snakeDirections = [
 	0,
@@ -35,10 +36,10 @@ func _ready() -> void:
 	spawnApple()
 
 func spawnApple() -> void:
-	var spawnAppleLocation = Vector2i(randi_range(-10, 9), randi_range(-10, 9))
+	var spawnAppleLocation = Vector2i(randi_range(-gridSize-1, gridSize), randi_range(-gridSize-1, gridSize))
 	
 	while $SnakeTiles.get_cell_atlas_coords(spawnAppleLocation) != Vector2i(-1, -1):
-		spawnAppleLocation = Vector2i(randi_range(-10, 9), randi_range(-10, 9))
+		spawnAppleLocation = Vector2i(randi_range(-gridSize-1, gridSize), randi_range(-gridSize-1, gridSize))
 			
 	$SnakeTiles.set_cell(spawnAppleLocation, 0, Apple)
 
@@ -92,13 +93,14 @@ func _on_update_timeout() -> void:
 		length += 1
 		$"../Control/Label".text = "Score: " + str(length - 3)
 		spawnApple()
-		$Update.start($Update.wait_time*0.95 + 0.05*minDelay)
+		$Update.start($Update.wait_time*0.96 + 0.04*minDelay)
+		print($Update.wait_time)
 
 	#Move head forward
 	parts.push_front(parts[0] + direction[0])
 
 	#Check for wall collision
-	if (parts[0].x < -10 or 9 < parts[0].x) or (parts[0].y < -10 or 9 < parts[0].y):
+	if (parts[0].x < -gridSize-1 or gridSize < parts[0].x) or (parts[0].y < -gridSize-1 or gridSize < parts[0].y):
 		print("Hit Wall")
 		$Update.stop()
 		return

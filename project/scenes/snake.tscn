@@ -19,11 +19,11 @@ z_index = 1
 script = ExtResource("1_bvojy")
 
 [node name="SnakeTiles" type="TileMapLayer" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(5, 5)
 tile_set = SubResource("TileSet_5ntdl")
 
 [node name="Update" type="Timer" parent="."]
-wait_time = 0.35
+wait_time = 0.4
 autostart = true
 
 [connection signal="timeout" from="Update" to="." method="_on_update_timeout"]
